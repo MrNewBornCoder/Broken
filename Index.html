@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nimo Says Sorry & Misses You</title>
+    <style>
+        body {
+            background-size: cover;
+            color: white;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            transition: background-image 0.5s ease; /* Smooth transition for background changes */
+        }
+
+        .section {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(255, 192, 203, 0.7), rgba(173, 216, 230, 0.7));
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            border: 2px solid white;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section:nth-child(2) { animation-delay: 0.5s; }
+        .section:nth-child(3) { animation-delay: 1s; }
+        .section:nth-child(4) { animation-delay: 1.5s; }
+        .section:nth-child(5) { animation-delay: 2s; }
+        .section:nth-child(6) { animation-delay: 2.5s; }
+        .section:nth-child(7) { animation-delay: 3s; }
+        .section:nth-child(8) { animation-delay: 3.5s; }
+        .section:nth-child(9) { animation-delay: 4s; }
+        .section:nth-child(10) { animation-delay: 4.5s; }
+        .section:nth-child(11) { animation-delay: 5s; }
+        .section:nth-child(12) { animation-delay: 5.5s; }
+        .section:nth-child(13) { animation-delay: 6s; }
+        .section:nth-child(14) { animation-delay: 6.5s; }
+
+        h1 {
+            color: #ff69b4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 2.5em;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 10px;
+            background: linear-gradient(to right, #ff4081, #9c27b0);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        input[type="text"], textarea {
+            padding: 12px;
+            font-size: 1em;
+            margin: 10px 0;
+            width: calc(100% - 24px);
+            border: 2px solid #ff69b4;
+            border-radius: 8px;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #slideshow {
+            width: 400px;
+            height: 300px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 20px 0;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(255, 105, 180, 0.7), rgba(255, 160, 122, 0.7));
+            border-radius: 12px;
+            box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.2);
+            width: calc(100% - 100px);
+            border: 2px solid white;
+        }
+
+        .question {
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+            position: relative;
+        }
+       .answer-button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 10px;
+            background: linear-gradient(to right, #ff4081, #9c27b0);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .answer-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        .yes-no-button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .yes-no-button:hover {
+            background-color: #367c39;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 3px solid #ff69b4;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 10;
+            color: black;
+        }
+
+        .popup button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+             background: linear-gradient(to right, #ff4081, #9c27b0);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+             transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        #nextImageButton {
+            margin: 20px auto;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            background: linear-gradient(to right, #4CAF50, #388E3C);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: none; /* Initially hidden */
+        }
+
+        #nextImageButton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h1>Nimo says sorry and misses you!</h1>
+        <p>I really miss you and I'm so sorry. I hope we can talk soon.</p>
+    </div>
+
+    <div class="section" id="quiz">
+        <h2>Romantic Memories Quiz</h2>
+        
+        <div class="question" id="question1">
+            <p>HI Theodora, do you forgive me?</p>
+            <button class="yes-no-button" onclick="checkAnswer('question1', 'yes')">Yes</button>
+            <button class="yes-no-button" onclick="checkAnswer('question1', 'no')">No</button>
+        </div>
+        <div class="question hidden" id="question2">
+            <p>Do you miss me?</p>
+            <button class="yes-no-button" onclick="checkAnswer('question2', 'yes')">Yes</button>
+            <button class="yes-no-button" onclick="checkAnswer('question2', 'no')">No</button>
+        </div>
+        <div class="question hidden" id="question3">
+            <p>Do you still think about the good times we had together?</p>
+            <button class="yes-no-button" onclick="checkAnswer('question3', 'yes')">Yes</button>
+            <button class="yes-no-button" onclick="checkAnswer('question3', 'no')">No</button>
+        </div>
+        <div class="question hidden" id="question4">
+            <p>Do you believe we could make things work if we tried again?</p>
+            <button class="yes-no-button" onclick="checkAnswer('question4', 'yes')">Yes</button>
+            <button class="yes-no-button" onclick="checkAnswer('question4', 'no')">No</button>
+        </div>
+        <div class="question hidden" id="question5">
+            <p>Do you miss spending time with me?</p>
+            <button class="yes-no-button" onclick="checkAnswer('question5', 'yes')">Yes</button>
+            <button class="yes-no-button" onclick="checkAnswer('question5', 'no')">No</button>
+        </div>
+        <div class="question hidden" id="question6">
+            <p>Do you think we both have grown since our breakup?</p>
+            <button class="yes-no-button" onclick="checkAnswer('question6', 'yes')">Yes</button>
+            <button class="yes-no-button" onclick="checkAnswer('question6', 'no')">No</button>
+        </div>
+        <div class="question hidden" id="question7">
+            <p>Do you still have feelings for me?</p>
+             <button class="yes-no-button" onclick="checkAnswer('question7', 'yes')">Yes</button>
+            <button class="yes-no-button" onclick="checkAnswer('question7', 'no')">No</button>
+        </div>
+        <div class="question hidden" id="question8">
+            <p>Do you think we could learn from our past mistakes?</p>
+            <button class="yes-no-button" onclick="checkAnswer('question8', 'yes')">Yes</button>
+            <button class="yes-no-button" onclick="checkAnswer('question8', 'no')">No</button>
+        </div>
+        <div class="question hidden" id="question9">
+            <p>Would you like to go on a date with me to talk things over?</p>
+            <button class="yes-no-button" onclick="checkAnswer('question9', 'yes')">Yes</button>
+            <button class="yes-no-button" onclick="checkAnswer('question9', 'no')">No</button>
+        </div>
+        <div class="question hidden" id="question10">
+             <p>Do you believe in second chances?</p>
+             <button class="yes-no-button" onclick="checkAnswer('question10', 'yes')">Yes</button>
+            <button class="yes-no-button" onclick="checkAnswer('question10', 'no')">No</button>
+        </div>
+        <div class="question hidden" id="question11">
+            <p>Do you think we could build a stronger relationship now?</p>
+            <textarea id="answer11" placeholder="Enter your thoughts"></textarea>
+            <button class = "answer-button" onclick="showCompletionMessage()">Submit</button>
+        </div>
+    </div>
+
+    <div class="section hidden" id="message">
+        <h2>Thank you!</h2>
+        <p>I cherish every moment with you. I hope we can reconnect. Please call me.</p>
+    </div>
+
+    <div class="section" id="slideshow">
+        <img class="slide active" src="image-1.jpg" alt="Memory 1">
+        <img class="slide" src="image-2.jpg" alt="Memory 2">
+        <img class="slide" src="image-3.jpg" alt="Memory 3">
+        <img class="slide" src="image-4.jpg" alt="Memory 4">
+        <img class="slide" src="image-5.jpg" alt="Memory 5">
+        <img class="slide" src="image-6.jpg" alt="Memory 6">
+        <img class="slide" src="image-7.jpg" alt="Memory 7">
+        <img class="slide" src="image-8.jpg" alt="Memory 8">
+        <img class="slide" src="image-9.jpg" alt="Memory 9">
+        <img class="slide" src="image-10.jpg" alt="Memory 10">
+    </div>
+
+    <button id="nextImageButton" onclick="showNextImage()">Show Next Image</button>
+
+    <div class="section">
+        <h2>Final Words</h2>
+        <p>I'm waiting to hear from you. Please reach out.</p>
+    </div>
+
+    <footer>
+        <h2>Contact Me</h2>
+        <p>Phone: Call Nimo</p>
+        <button onclick="sendAnswers()">Get Answers</button>
+    </footer>
+     <div id="popup" class="popup hidden">
+        <p id="popup-text">Please forgive me, Diva</p>
+        <button id="popup-yes" class="yes-no-button" onclick="checkPopupAnswer('yes')">Yes</button>
+        <button id="popup-no" class="yes-no-button" onclick="checkPopupAnswer('no')">No</button>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        let forgivenessGiven = false;
+        let noCount = 0;
+        let imageIndex = 11; // Start after the initial 10 images
+        const totalImages = 15; //change this to the total number of images you have
+        const slideshowImages = [
+            "image-1.jpg",
+            "image-2.jpg",
+            "image-3.jpg",
+            "image-4.jpg",
+            "image-5.jpg",
+            "image-6.jpg",
+            "image-7.jpg",
+            "image-8.jpg",
+            "image-9.jpg",
+            "image-10.jpg"
+        ];
+
+        function changeBackground(imageName) {
+            document.body.style.backgroundImage = `url('${imageName}')`;
+        }
+
+        function checkAnswer(questionId, correctAnswer) {
+            if (questionId === 'question1') {
+                if (correctAnswer === 'yes') {
+                    forgivenessGiven = true;
+                    document.getElementById(questionId).classList.add('hidden');
+                    currentQuestion++;
+                    let nextQ = "question" + currentQuestion;
+                    if (document.getElementById(nextQ)) {
+                        document.querySelectorAll('.question').forEach(q => q.classList.add('hidden'));
+                        document.getElementById(nextQ).classList.remove('hidden');
+                    }
+                     //start the slideshow and change background to first image
+                    startSlideshow();
+                    changeBackground(slideshowImages[0]);
+
+                } else {
+                    noCount++;
+                    let popupText = "Please forgive me, Diva. ";
+                    for (let i = 0; i < noCount; i++) {
+                        popupText += "I'm really sorry.  ";
+                    }
+                    popupText += "Please give me a chance. I love you. Will you forgive me?";
+                    document.getElementById('popup-text').textContent = popupText;
+                    document.getElementById('popup').style.display = 'block';
+                }
+            } else {
+                if (correctAnswer === 'yes') {
+                    document.getElementById(questionId).classList.add('hidden');
+                    currentQuestion++;
+                    let nextQ = "question" + currentQuestion;
+                    if (document.getElementById(nextQ)) {
+                        document.querySelectorAll('.question').forEach(q => q.classList.add('hidden'));
+                        document.getElementById(nextQ).classList.remove('hidden');
+                    }
+                } else {
+                    alert('Wrong answer, try again!');
+                }
+            }
+        }
+
+        function checkPopupAnswer(answer) {
+            if (answer === 'yes') {
+                forgivenessGiven = true;
+                document.getElementById('popup').style.display = 'none';
+                 document.getElementById('question1').classList.add('hidden');
+                    currentQuestion++;
+                    let nextQ = "question" + currentQuestion;
+                    if (document.getElementById(nextQ)) {
+                        document.querySelectorAll('.question').forEach(q => q.classList.add('hidden'));
+                        document.getElementById(nextQ).classList.remove('hidden');
+                    }
+                    //start the slideshow and change background to first image
+                    startSlideshow();
+                    changeBackground(slideshowImages[0]);
+
+            } else {
+                noCount++;
+                let popupText = "Please forgive me, Diva. ";
+                for (let i = 0; i < noCount; i++) {
+                    popupText += "I'm really sorry.  ";
+                }
+                popupText += "Please give me a chance. I love you. Will you forgive me?";
+                document.getElementById('popup-text').textContent = popupText;
+                document.getElementById('popup').style.display = 'block';
+            }
+        }
+
+
+        function showCompletionMessage() {
+            document.getElementById('question11').classList.add('hidden');
+            document.getElementById('message').classList.remove('hidden');
+        }
+
+        function sendAnswers() {
+            const answers = {
+                answer1: document.getElementById('answer1').value,
+                answer2: document.getElementById('answer2').value,
+                answer3: document.getElementById('answer3').value,
+                answer4: document.getElementById('answer4').value,
+                answer5: document.getElementById('answer5').value,
+                answer6: document.getElementById('answer6').value,
+                answer7: document.getElementById('answer7').value,
+                answer8: document.getElementById('answer8').value,
+                answer9: document.getElementById('answer9').value,
+                answer10: document.getElementById('answer10').value,
+                answer11: document.getElementById('answer11').value,
+            };
+
+            const subject = "Quiz Answers from Your Special Person";
+            let body = "Quiz Answers:\n\n";
+
+            for (const key in answers) {
+                body += `${key}: ${answers[key]}\n`;
+            }
+
+            const mailtoLink = `mailto:us.mehta001@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+        }
+
+        // Image slideshow functionality
+        const slides = document.querySelectorAll('#slideshow .slide');
+        let currentSlide = 0;
+        let slideshowInterval;
+
+        function startSlideshow() {
+            slideshowInterval = setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slideshowImages.length;
+                slides[currentSlide].classList.add('active');
+                 changeBackground(slideshowImages[currentSlide]);
+            }, 3000);
+            //show next image button after slideshow
+            document.getElementById('nextImageButton').style.display = 'block';
+        }
+
+        function stopSlideshow() {
+            clearInterval(slideshowInterval);
+        }
+
+        function showNextImage() {
+            if (imageIndex <= totalImages) {
+                const nextImageName = `image-${imageIndex}.jpg`;
+                let img = new Image();
+                img.src = nextImageName;
+                img.onload = () => {
+                    changeBackground(nextImageName);
+                }
+
+                imageIndex++;
+                if (imageIndex > totalImages) {
+                    document.getElementById('nextImageButton').style.display = 'none';
+                }
+            }
+        }
+
+        //show first question
+        document.getElementById('question1').style.display = 'block';
+    </script>
+</body>
+</html>
