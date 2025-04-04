@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bobby Says Sorry & Misses You</title>
+    <title>Nimo Says Sorry & Misses You</title>
     <style>
         body {
             background-size: cover;
@@ -227,7 +227,7 @@
         <h2>Romantic Memories Quiz</h2>
         
         <div class="question" id="question1">
-            <p>HI Divya, do you forgive me?</p>
+            <p>HI Theodora, do you forgive me?</p>
             <button class="yes-no-button" onclick="checkAnswer('question1', 'yes')">Yes</button>
             <button class="yes-no-button" onclick="checkAnswer('question1', 'no')">No</button>
         </div>
@@ -289,16 +289,16 @@
     </div>
 
     <div class="section" id="slideshow">
-        <img class="slide active" src="Images/image-1.jpg" alt="Memory 1">
-        <img class="slide" src="Images/image-2.jpg" alt="Memory 2">
-        <img class="slide" src="Images/image-3.jpg" alt="Memory 3">
-        <img class="slide" src="Images/image-4.jpg" alt="Memory 4">
-        <img class="slide" src="Images/image-5.jpg" alt="Memory 5">
-        <img class="slide" src="Images/image-6.jpg" alt="Memory 6">
-        <img class="slide" src="Images/image-7.jpg" alt="Memory 7">
-        <img class="slide" src="Images/image-8.jpg" alt="Memory 8">
-        <img class="slide" src="Images/image-9.jpg" alt="Memory 9">
-        <img class="slide" src="Images/image-10.jpg" alt="Memory 10">
+        <img class="slide active" src="image-1.jpg" alt="Memory 1">
+        <img class="slide" src="image-2.jpg" alt="Memory 2">
+        <img class="slide" src="image-3.jpg" alt="Memory 3">
+        <img class="slide" src="image-4.jpg" alt="Memory 4">
+        <img class="slide" src="image-5.jpg" alt="Memory 5">
+        <img class="slide" src="image-6.jpg" alt="Memory 6">
+        <img class="slide" src="image-7.jpg" alt="Memory 7">
+        <img class="slide" src="image-8.jpg" alt="Memory 8">
+        <img class="slide" src="image-9.jpg" alt="Memory 9">
+        <img class="slide" src="image-10.jpg" alt="Memory 10">
     </div>
 
     <button id="nextImageButton" onclick="showNextImage()">Show Next Image</button>
@@ -310,7 +310,7 @@
 
     <footer>
         <h2>Contact Me</h2>
-        <p>Phone: 6232809908</p>
+        <p>Phone: Call Nimo</p>
         <button onclick="sendAnswers()">Get Answers</button>
     </footer>
      <div id="popup" class="popup hidden">
@@ -326,16 +326,16 @@
         let imageIndex = 11; // Start after the initial 10 images
         const totalImages = 15; //change this to the total number of images you have
         const slideshowImages = [
-            "Images/image-1.jpg",
-            "Images/image-2.jpg",
-            "Images/image-3.jpg",
-            "Images/image-4.jpg",
-            "Images/image-5.jpg",
-            "Images/image-6.jpg",
-            "Images/image-7.jpg",
-            "Images/image-8.jpg",
-            "Images/image-9.jpg",
-            "Images/image-10.jpg"
+            "image-1.jpg",
+            "image-2.jpg",
+            "image-3.jpg",
+            "image-4.jpg",
+            "image-5.jpg",
+            "image-6.jpg",
+            "image-7.jpg",
+            "image-8.jpg",
+            "image-9.jpg",
+            "image-10.jpg"
         ];
 
         function changeBackground(imageName) {
@@ -463,7 +463,7 @@
 
         function showNextImage() {
             if (imageIndex <= totalImages) {
-                const nextImageName = `Images/image-${imageIndex}.jpg`;
+                const nextImageName = `image-${imageIndex}.jpg`;
                 let img = new Image();
                 img.src = nextImageName;
                 img.onload = () => {
